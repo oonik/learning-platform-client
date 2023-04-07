@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import register from '../../../images/register22222.jpg'
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const Register = () => {
+    const [error, setError] = useState('');
+
     const {createUser} = useContext(AuthContext);
     const handleSubmit =(event)=>{
         event.preventDefault();
@@ -17,12 +19,16 @@ const Register = () => {
         .then((result)=>{
             const user = result.user;
             console.log(user)
+            setError('');
             form.reset();
         })
-        .then((error)=>console.error(error))
+        .catch((error)=>{
+            console.error(error);
+            setError(error.message)
+        })
     }
     return (
-        <div className='p-2 rounded' style={{
+        <div className='p-3 rounded' style={{
             backgroundImage: `url(${register})`
         }}>
             <Form onSubmit={handleSubmit} className='w-25 m-auto text-dark'>
@@ -47,7 +53,7 @@ const Register = () => {
                     Register
                 </Button>
                 <Form.Text className='text-danger'>
-
+                    {error}
                 </Form.Text>
             </Form>
         </div>

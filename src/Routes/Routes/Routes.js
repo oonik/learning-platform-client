@@ -5,6 +5,7 @@ import Category from "../../Pages/Category/Category/Category";
 import Course from "../../Pages/Course/Course/Course";
 import Login from "../../Shared/Login/Login/Login";
 import Register from "../../Shared/Login/Register/Register";
+import PrivetRoute from "../PrivetRoute/PrivetRoute";
 
 export const routes = createBrowserRouter([
     {
@@ -23,7 +24,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/course/:id',
-                element: <Course></Course>,
+                element: <PrivetRoute><Course></Course></PrivetRoute>,
                 loader: ({params})=> fetch(`http://localhost:5000/course/${params.id}`)
             },
             {
