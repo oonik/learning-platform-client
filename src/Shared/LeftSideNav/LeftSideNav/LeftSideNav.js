@@ -1,16 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { FaGithub, FaGoogle } from "react-icons/fa";
+import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import { GoogleAuthProvider } from "firebase/auth";
 
 const LeftSideNav = () => {
+    const {providerLogin} = useContext(AuthContext);
+
     const [categories, setCategories] = useState([]);
     useEffect(() => {
         fetch('http://localhost:5000/course-category')
             .then(res => res.json())
             .then(data => setCategories(data))
     }, [])
+
+    const googleProvider = new GoogleAuthProvider();
+    const handleGoogleSingIn =()=>{
+        providerLogin(googleProvider)
+        .then((result)=>{
+            const user = result.user;
+            console.log(user)
+        })
+        .catch((error)=>console.error(error))
+    }
     return (
         <div>
             {
@@ -20,8 +34,8 @@ const LeftSideNav = () => {
             }
             <div>
                 <ButtonGroup vertical>
-                    <Button variant="outline-info"><FaGoogle></FaGoogle> Login with Google</Button>
-                    <Button variant="outline-dark"><FaGithub></FaGithub> Login with Github</Button>
+                    <Button onClick={handleGoogleSingIn} variant="outline-info"><FaGoogle></FaGoogle> Login Google</Button>
+                    <Button variant="outline-dark"><FaGithub></FaGithub> Login Github</Button>
                 </ButtonGroup>
             </div>
         </div>

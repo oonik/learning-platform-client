@@ -7,10 +7,18 @@ import logo from '../../../images/download.png'
 import { Link } from 'react-router-dom';
 import LeftSideNav from '../../LeftSideNav/LeftSideNav/LeftSideNav';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import { FaUser } from "react-icons/fa";
 
 
 const Header = () => {
-  const {user} = useContext(AuthContext)
+  const {user, logOut} = useContext(AuthContext)
+  const handleLogout =()=>{
+     logOut()
+     .then(()=>{
+
+     })
+     .catch((error)=>console.error(error))
+  }
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
@@ -26,9 +34,27 @@ const Header = () => {
               <Nav.Link href="#pricing">Pricing</Nav.Link>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">{user.displayName}</Nav.Link>
+              <Nav.Link href="#deets">
+                {
+                  user?.uid ?
+                  <>
+                   <span>{user?.displayName}</span>
+                   <button onClick={handleLogout} variant="light" className='rounded'>Log out</button>
+                  </>
+                  :
+                  <>
+                   <Link className='me-2' to='/login'>Login</Link>
+                   <Link to='/register'>Register</Link>
+                  </>
+                }
+                
+                </Nav.Link>
               <Nav.Link eventKey={2} href="#memes">
-                Dank memes
+                {
+                  user ? 
+                  <Image style={{height: '40px'}} roundedCircle src={user.photoURL}></Image>
+                  : <FaUser></FaUser>
+                }
               </Nav.Link>
             </Nav>
             <div className='d-lg-none'>

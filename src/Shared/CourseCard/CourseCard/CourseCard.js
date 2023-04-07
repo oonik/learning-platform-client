@@ -9,7 +9,7 @@ const CourseCard = ({ course }) => {
     const { title, image_url, details, _id } = course;
     return (
         <div className='col col-sm-12 col-md-6 col-lg-6'>
-            <Card className='mb-4'>
+            <Card className='mb-4 shadow-lg'>
                 <Card.Img variant="top" style={{height: '15rem'}} src={image_url} />
                 <Card.Body>
                     <Card.Title>{title}</Card.Title>
