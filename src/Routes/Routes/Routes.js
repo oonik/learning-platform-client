@@ -7,6 +7,7 @@ import Login from "../../Shared/Login/Login/Login";
 import Register from "../../Shared/Login/Register/Register";
 import PrivetRoute from "../PrivetRoute/PrivetRoute";
 import Blog from "../../Pages/Blog/Blog/Blog";
+import ErrorPage from "../../Shared/ErroePage/ErrorPage/ErrorPage";
 
 export const routes = createBrowserRouter([
     {
@@ -39,6 +40,10 @@ export const routes = createBrowserRouter([
             {
                 path: '/blog',
                 element: <Blog></Blog>
+            },
+            {
+                path: '*',
+                element: <ErrorPage></ErrorPage>
             }
         ]
     }
