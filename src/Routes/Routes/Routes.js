@@ -6,6 +6,7 @@ import Course from "../../Pages/Course/Course/Course";
 import Login from "../../Shared/Login/Login/Login";
 import Register from "../../Shared/Login/Register/Register";
 import PrivetRoute from "../PrivetRoute/PrivetRoute";
+import Blog from "../../Pages/Blog/Blog/Blog";
 
 export const routes = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ export const routes = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register></Register>
+            },
+            {
+                path: '/blog',
+                element: <Blog></Blog>
             }
         ]
     }
